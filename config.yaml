@@ -1,4 +1,4 @@
-api_key_path: '.chatgpt_credentials/api_key.txt'
+api_key_path: '.chatgpt_credentials/api_key.key'
 engine: "text-davinci-002"
 max_tokens: 1024
 n: 1
