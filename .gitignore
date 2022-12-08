@@ -1,1 +1,4 @@
 output/
+.credentials/
+*.pem
+*.key
