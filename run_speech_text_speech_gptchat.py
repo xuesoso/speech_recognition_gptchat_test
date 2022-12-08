@@ -2,7 +2,7 @@
 
 def __main__():
     import speech_recognition as sr
-    import openai, os, yaml, logging, datetime, uuid
+    import openai, os, yaml, logging, datetime, uuid, subprocess
 
     # Set the log level to INFO and specify a custom log format
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -71,8 +71,15 @@ def __main__():
             w.write('---------\n'.format(prompt))
             w.write('chatGPT response:\n\n')
             w.write('{:}\n'.format(response['choices'][0]['text'].strip()))
+        
+        # Generate speech from the text file
+        speech_generation_cmd = ' '.join(['python', 'speech_generation_gtts.py', fn])
+        subprocess.run(speech_generation_cmd, shell=True, check=True)
+        logging.info("speech generation complete")
 
 #%%```python
 
 if __name__ == '__main__':
     __main__()
+
+#%%```python
