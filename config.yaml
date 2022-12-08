@@ -1,0 +1,7 @@
+api_key_path: '.chatgpt_credentials/api_key.txt'
+engine: "text-davinci-002"
+max_tokens: 1024
+n: 1
+temperature: 0.5
+write_output: True
+output: './output'
