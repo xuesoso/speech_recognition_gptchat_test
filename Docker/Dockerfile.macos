@@ -1,0 +1,28 @@
+FROM mambaorg/micromamba:0.8.2
+
+COPY requirements.txt /
+
+#### Install packages with micromamba (much faster than anaconda) ####
+RUN micromamba install -c conda-forge \ 
+                            python=3.7.0 \
+                            pip=22.2.2 \
+                            SpeechRecognition=3.9.0 \
+                            gtts=2.3.0 \
+                            pyaudio=0.2.11 \
+                            pyyaml=6.0 \
+                            openai=0.25.0
+
+#### Configure permission settings ####
+RUN chmod ugo+rwx /root
+RUN chmod ugo+rwx /tmp
+WORKDIR /tmp/
+
+#### Create a user with the same UID as the host user ####
+ARG USER_ID
+ARG GROUP_ID
+# RUN addgroup --gid $GROUP_ID user
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+USER user
+
+#### Run Jupyter Notebook backend ####
+# CMD jupyter notebook --port=8887 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.password="" --NotebookApp.token=""
