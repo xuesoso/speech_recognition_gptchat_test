@@ -1,5 +1,6 @@
 from gtts import gTTS
 import os, yaml, logging, sys
+_playsound_ = True
 
 def main():
     # Set the log level to INFO and specify a custom log format
@@ -31,8 +32,12 @@ def main():
 
     # Save the converted speech to a file
     logging.info('saving converted speech mp3: {:}'.format(gptchat_output))
-    speech.save(os.path.join(configs['output'], fn_path))
+    mp3_path = os.path.join(configs['output'], fn_path)
+    speech.save(mp3_path)
 
+    if _playsound_:
+        from playsound import playsound
+        playsound(mp3_path, True)
 
 if __name__ == '__main__':
     main()
